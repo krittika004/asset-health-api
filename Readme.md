@@ -3,22 +3,38 @@
 A Flask-based API for asset health prediction using sensor data. The API provides endpoints for health checks and detailed analysis of temperature, vibration, magnetic flux, and ultrasound sensor data.
 
 ## Project Structure
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Flask](https://img.shields.io/badge/Flask-lightgrey?logo=flask)
+![Build](https://img.shields.io/badge/Tests-Passing-brightgreen)
 
 ```
-Asset-Health-Prediction/
+ASSET-HEALTH-PREDICTION-MAIN/
 │
 ├── app/
-│   ├── __init__.py         # App factory and route registration
-│   ├── routes.py           # All Flask API endpoints
-│   ├── health_utils.py     # Health analysis and utility functions
-│   └── config.py           # App configuration
+│   ├── __init__.py            # Initialize the app, register blueprints
+│   ├── config.py              # App configuration (environment vars, DB config)
+│   ├── factory.py             # App factory pattern
+│   ├── extensions.py          # Initialize extensions like DB, JWT, etc.
+│   ├── health_utils.py        # Health prediction and utility logic
+│   └── routes/
+│       ├── __init__.py        # Initialize routes module
+│       └── api_routes.py      # Define API routes (Flask endpoints)
 │
-├── wsgi.py                 # WSGI entry point for production
-├── app.py                  # Development entry point
-├── requirements.txt        # Python dependencies
-├── Procfile                # For deployment (e.g., Heroku)
-├── Readme.md               # Project documentation
-```
+├── swagger/
+│   └── swagger.yaml           # OpenAPI/Swagger API specification
+│
+├── tests/
+│   └── test_api.py            # API test cases
+│
+├── app.py                     # Dev entry point (runs the app locally)
+├── wsgi.py                    # WSGI entry point for production (e.g., Gunicorn)
+├── locustfile.py              # Load testing using Locust
+├── requirements.txt           # Python package dependencies
+├── request.txt                # Possibly example API requests or Postman export
+├── Procfile                   # Heroku deployment process file
+├── README.md                  # Project documentation
+└── .gitignore                 # Git ignored files
+
 
 ## Setup
 
