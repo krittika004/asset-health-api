@@ -1,11 +1,12 @@
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Flask](https://img.shields.io/badge/Flask-lightgrey?logo=flask)
+![Build](https://img.shields.io/badge/Tests-Passing-brightgreen)
+
 # Asset Health Prediction API
 
 A Flask-based API for asset health prediction using sensor data. The API provides endpoints for health checks and detailed analysis of temperature, vibration, magnetic flux, and ultrasound sensor data.
 
 ## Project Structure
-![Python](https://img.shields.io/badge/Python-3.10-blue)
-![Flask](https://img.shields.io/badge/Flask-lightgrey?logo=flask)
-![Build](https://img.shields.io/badge/Tests-Passing-brightgreen)
 
 ```
 ASSET-HEALTH-PREDICTION-MAIN/
