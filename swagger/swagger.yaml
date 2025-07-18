@@ -1,0 +1,277 @@
+swagger: "2.0"
+info:
+  title: Asset Health Prediction API
+  description: Predict asset health using various sensors
+  version: 1.0.0
+host: localhost:5000
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: System
+    description: System status endpoints
+  - name: Basic Health
+    description: Basic health check operations
+  - name: Advanced Health
+    description: Advanced health check operations with all sensors
+paths:
+  /:
+    get:
+      tags:
+        - System
+      summary: Root status and API information
+      responses:
+        200:
+          description: API status and uptime information
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              version:
+                type: string
+              uptime_seconds:
+                type: integer
+
+  /check_health:
+    post:
+      tags:
+        - Basic Health
+      summary: Basic temperature and vibration health check
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/HealthCheckRequest"
+      responses:
+        200:
+          description: Health result
+          schema:
+            $ref: "#/definitions/HealthCheckResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /analyze:
+    post:
+      tags:
+        - Basic Health
+      summary: Detailed analysis of sensor data
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/HealthCheckRequest"
+      responses:
+        200:
+          description: Analysis results
+          schema:
+            $ref: "#/definitions/AnalyzeResponse"
+        415:
+          description: Unsupported Media Type
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /check_health_quad:
+    post:
+      tags:
+        - Advanced Health
+      summary: Advanced health check using all sensor types
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/QuadHealthCheckRequest"
+      responses:
+        200:
+          description: Quad health check results
+          schema:
+            $ref: "#/definitions/QuadHealthCheckResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /report:
+    post:
+      tags:
+        - Advanced Health
+      summary: Generate detailed report using all sensors
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/QuadHealthCheckRequest"
+      responses:
+        200:
+          description: Detailed report
+          schema:
+            $ref: "#/definitions/AnalyzeResponse"
+        415:
+          description: Unsupported Media Type
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  HealthCheckRequest:
+    type: object
+    required: [data_list, thresholds]
+    properties:
+      data_list:
+        type: array
+        items:
+          type: object
+          required: [temperature_one, temperature_two, vibration_x, vibration_y, vibration_z]
+          properties:
+            temperature_one: { type: number }
+            temperature_two: { type: number }
+            vibration_x: { type: number }
+            vibration_y: { type: number }
+            vibration_z: { type: number }
+      thresholds:
+        type: object
+        required: [temperature_skin_healthy, temperature_skin_warning, temperature_bearing_healthy, 
+                  temperature_bearing_warning, vibration_X_healthy, vibration_X_warning,
+                  vibration_Y_healthy, vibration_Y_warning, vibration_Z_healthy, vibration_Z_warning]
+        properties:
+          temperature_skin_healthy: { type: number }
+          temperature_skin_warning: { type: number }
+          temperature_bearing_healthy: { type: number }
+          temperature_bearing_warning: { type: number }
+          vibration_X_healthy: { type: number }
+          vibration_X_warning: { type: number }
+          vibration_Y_healthy: { type: number }
+          vibration_Y_warning: { type: number }
+          vibration_Z_healthy: { type: number }
+          vibration_Z_warning: { type: number }
+
+  QuadHealthCheckRequest:
+    type: object
+    required: [data_list, thresholds]
+    properties:
+      data_list:
+        type: array
+        items:
+          type: object
+          required: [temperature_one, temperature_two, vibration_x, vibration_y, vibration_z,
+                    magnetic_flux_x, magnetic_flux_y, magnetic_flux_z, ultrasound_one, ultrasound_two]
+          properties:
+            temperature_one: { type: number }
+            temperature_two: { type: number }
+            vibration_x: { type: number }
+            vibration_y: { type: number }
+            vibration_z: { type: number }
+            magnetic_flux_x: { type: number }
+            magnetic_flux_y: { type: number }
+            magnetic_flux_z: { type: number }
+            ultrasound_one: { type: number }
+            ultrasound_two: { type: number }
+      thresholds:
+        type: object
+        required: [temperature_skin_healthy, temperature_skin_warning, temperature_bearing_healthy, 
+                  temperature_bearing_warning, vibration_X_healthy, vibration_X_warning,
+                  vibration_Y_healthy, vibration_Y_warning, vibration_Z_healthy, vibration_Z_warning,
+                  magnetic_flux_X_healthy, magnetic_flux_X_warning, magnetic_flux_Y_healthy,
+                  magnetic_flux_Y_warning, magnetic_flux_Z_healthy, magnetic_flux_Z_warning,
+                  ultrasound_one_healthy, ultrasound_one_warning, ultrasound_two_healthy, ultrasound_two_warning]
+        properties:
+          temperature_skin_healthy: { type: number }
+          temperature_skin_warning: { type: number }
+          temperature_bearing_healthy: { type: number }
+          temperature_bearing_warning: { type: number }
+          vibration_X_healthy: { type: number }
+          vibration_X_warning: { type: number }
+          vibration_Y_healthy: { type: number }
+          vibration_Y_warning: { type: number }
+          vibration_Z_healthy: { type: number }
+          vibration_Z_warning: { type: number }
+          magnetic_flux_X_healthy: { type: number }
+          magnetic_flux_X_warning: { type: number }
+          magnetic_flux_Y_healthy: { type: number }
+          magnetic_flux_Y_warning: { type: number }
+          magnetic_flux_Z_healthy: { type: number }
+          magnetic_flux_Z_warning: { type: number }
+          ultrasound_one_healthy: { type: number }
+          ultrasound_one_warning: { type: number }
+          ultrasound_two_healthy: { type: number }
+          ultrasound_two_warning: { type: number }
+
+  HealthCheckResponse:
+    type: object
+    required: [temperature_health, vibration_health, overall_health]
+    properties:
+      temperature_health:
+        type: string
+        enum: [healthy, unhealthy]
+      vibration_health:
+        type: string
+        enum: [healthy, unhealthy]
+      overall_health:
+        type: string
+        enum: [Healthy, Unhealthy]
+
+  QuadHealthCheckResponse:
+    type: object
+    required: [temperature_health, vibration_health, magnetic_flux_health, ultrasound_health, overall_health]
+    properties:
+      temperature_health:
+        type: string
+        enum: [healthy, unhealthy]
+      vibration_health:
+        type: string
+        enum: [healthy, unhealthy]
+      magnetic_flux_health:
+        type: string
+        enum: [healthy, unhealthy]
+      ultrasound_health:
+        type: string
+        enum: [healthy, unhealthy]
+      overall_health:
+        type: string
+        enum: [Healthy, Unhealthy]
+
+  AnalyzeResponse:
+    type: object
+    required: [overall_health, possible_cause, details]
+    properties:
+      overall_health:
+        type: string
+        enum: [Healthy, Unhealthy]
+      possible_cause: { type: string }
+      details:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            average: { type: number }
+            status: { type: string }
+            low: { type: number }
+            high: { type: number }
+
+  ErrorResponse:
+    type: object
+    required: [error]
+    properties:
+      error: { type: string }

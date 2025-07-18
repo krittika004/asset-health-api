@@ -1,0 +1,8 @@
+flask
+flask-swagger-ui
+numpy
+pandas
+pytest
+gunicorn
+flasgger
+locust

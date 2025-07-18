@@ -1,0 +1,108 @@
+POST /check_health — Basic health check for temperature and vibration
+POST /analyze — Detailed health analysis (duo sensors)
+
+{
+    "data_list": [
+      {
+        "temperature_one": 24.92,
+        "temperature_two": 19.87,
+        "vibration_x": -0.2,
+        "vibration_y": 0.16,
+        "vibration_z": 1.75
+      },
+      {
+        "temperature_one": 23.69,
+        "temperature_two": 18.49,
+        "vibration_x": -0.15,
+        "vibration_y": 0.17,
+        "vibration_z": 1.75
+      },
+      {
+        "temperature_one": 23.81,
+        "temperature_two": 20.42,
+        "vibration_x": -0.15,
+        "vibration_y": 0.17,
+        "vibration_z": 1.75
+      }
+    ],
+    "thresholds": {
+    "sensor_id_fk": "IEMA-601-2-0010",
+    "temperature_skin_healthy": 5,
+    "temperature_skin_warning": 80,
+    "temperature_bearing_healthy": 5,
+    "temperature_bearing_warning": 80,
+    "vibration_X_healthy": -20,
+    "vibration_X_warning": 50,
+    "vibration_Y_healthy": -20,
+    "vibration_Y_warning": 50,
+    "vibration_Z_healthy": -20,
+    "vibration_Z_warning": 50
+  }
+}
+
+POST /check_health_quad — Health check for temperature, vibration, magnetic flux, and ultrasound
+POST /report — Detailed health analysis (quad sensors)
+
+{
+  "data_list": [
+    {
+      "temperature_one": 16.83,
+      "temperature_two": 22.82,
+      "vibration_x": 73.34,
+      "vibration_y": 94.85,
+      "vibration_z": 26.06,
+      "ultrasound_one": 18.98,
+      "ultrasound_two": 80.26,
+      "magnetic_flux_x": 50.82,
+      "magnetic_flux_y": 59.59,
+      "magnetic_flux_z": 33.61
+    },
+    {
+      "temperature_one": 12.67,
+      "temperature_two": 28.28,
+      "vibration_x": 76.41,
+      "vibration_y": 100.18,
+      "vibration_z": 14.99,
+      "ultrasound_one": 12.72,
+      "ultrasound_two": 70.17,
+      "magnetic_flux_x": 57.31,
+      "magnetic_flux_y": 47.67,
+      "magnetic_flux_z": 50.11
+    },
+    {
+      "temperature_one": 17.75,
+      "temperature_two": 12.66,
+      "vibration_x": 77.2,
+      "vibration_y": 95.61,
+      "vibration_z": 7.82,
+      "ultrasound_one": 13.55,
+      "ultrasound_two": 64.62,
+      "magnetic_flux_x": 55.6,
+      "magnetic_flux_y": 58.64,
+      "magnetic_flux_z": 44.18
+    }
+  ],
+   "thresholds": {
+    "sensor_id_fk": "IEMAQUAD006",
+    "temperature_skin_healthy": 12,
+    "temperature_skin_warning": 85,
+    "temperature_bearing_healthy": 6,
+    "temperature_bearing_warning": 85,
+    "vibration_X_healthy": 8,
+    "vibration_X_warning": 87,
+    "vibration_Y_healthy": 12,
+    "vibration_Y_warning": 85,
+    "vibration_Z_healthy": 49,
+    "vibration_Z_warning": 163,
+    "magnetic_flux_X_healthy": 37,
+    "magnetic_flux_X_warning": 117,
+    "magnetic_flux_Y_healthy": 23,
+    "magnetic_flux_Y_warning": 85,
+    "magnetic_flux_Z_healthy": 30,
+    "magnetic_flux_Z_warning": 116,
+    "ultrasound_one_healthy": 4,
+    "ultrasound_one_warning": 124,
+    "ultrasound_two_healthy": 4,
+    "ultrasound_two_warning": 172
+  }
+}
